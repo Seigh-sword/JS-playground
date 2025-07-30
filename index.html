@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>JS Playground</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
   <header>
     <h1>JS Playground</h1>
     
-    <input type="text" id="projectName" placeholder="Project Name" />
+    <input type="text" id="projectName" placeholder="Project Name">
 
     <div class="dropdown">
       <button id="fileBtn">File ▾</button>
@@ -18,7 +18,7 @@
         <button id="exportBtn">Export</button>
         <button id="importBtn">Import</button>
         <button id="undoBtn">Undo (Ctrl+Z)</button>
-        <button id="redoBtn">Redo (Ctrl+Y)</button>
+        <button id="redoBtn">Redo (Ctrl+Y or Ctrl+Shift+Z)</button>
       </div>
     </div>
 
@@ -28,13 +28,18 @@
       <option value="metrix">Metrix</option>
       <option value="nature">Nature</option>
       <option value="brick">Brick</option>
+      <option value="ice">Ice</option>
+      <option value="firefly">Firefly</option>
+      <option value="retro">Retro</option>
+      <option value="candy">Candy</option>
+      <option value="ocean">Ocean</option>
     </select>
 
     <button id="runBtn">Run</button>
   </header>
 
   <main>
-    <textarea id="editor" placeholder="Write your JavaScript code here..."></textarea>
+    <textarea id="editor" placeholder="// Write your JavaScript game here"></textarea>
     <div id="preview"></div>
   </main>
 
