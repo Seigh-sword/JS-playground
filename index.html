@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JS Playground</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div id="app">
+<body class="dark">
+  <header>
     <h1>JS Playground</h1>
+    
+    <input type="text" id="projectName" placeholder="Project Name" />
 
-    <select id="themeSelector">
+    <div class="dropdown">
+      <button id="fileBtn">File ▾</button>
+      <div class="dropdown-content">
+        <button id="saveBtn">Save Project</button>
+        <button id="exportBtn">Export</button>
+        <button id="importBtn">Import</button>
+        <button id="undoBtn">Undo (Ctrl+Z)</button>
+        <button id="redoBtn">Redo (Ctrl+Y)</button>
+      </div>
+    </div>
+
+    <select id="themeSelect">
       <option value="dark">Dark</option>
       <option value="light">Light</option>
       <option value="metrix">Metrix</option>
@@ -18,11 +30,13 @@
       <option value="brick">Brick</option>
     </select>
 
-    <textarea id="editor" placeholder="// Write your JavaScript code here..."></textarea>
     <button id="runBtn">Run</button>
+  </header>
 
-    <canvas id="preview" width="500" height="400"></canvas>
-  </div>
+  <main>
+    <textarea id="editor" placeholder="Write your JavaScript code here..."></textarea>
+    <div id="preview"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>
