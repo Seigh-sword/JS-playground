@@ -1,48 +1,113 @@
-// Grabby grab
-const editor = document.getElementById("editor");
-const runBtn = document.getElementById("runBtn");
-const preview = document.getElementById("preview");
-const themeSelect = document.getElementById("themeSelect");
+// === Elements ===
+const runBtn = document.getElementById('runBtn');
+const projectNameInput = document.getElementById('projectName');
+const saveBtn = document.getElementById('saveBtn');
+const exportBtn = document.getElementById('exportBtn');
+const importBtn = document.getElementById('importBtn');
+const undoBtn = document.getElementById('undoBtn');
+const redoBtn = document.getElementById('redoBtn');
+const themeSelect = document.getElementById('themeSelect');
+const preview = document.getElementById('preview');
 
-// Placeholder power
-editor.placeholder = "// Write your JavaScript game here";
+// === Code Area Creation ===
+const codeArea = document.createElement('textarea');
+codeArea.id = 'codeArea';
+document.querySelector('main').insertBefore(codeArea, preview);
 
-// Run da code!
-runBtn.addEventListener("click", () => {
-  const userCode = editor.value;
-  const iframe = document.createElement("iframe");
+// === History ===
+let history = [];
+let historyIndex = -1;
 
-  iframe.width = 600;
-  iframe.height = 400;
-  iframe.style.border = "none";
-  iframe.style.borderRadius = "12px";
+function saveHistory() {
+  history = history.slice(0, historyIndex + 1);
+  history.push(codeArea.value);
+  historyIndex++;
+}
 
-  // Inject canvas + user JS inside iframe
-  iframe.srcdoc = `
-    <html>
-      <body style="margin:0;overflow:hidden;">
-        <canvas id="canvas" width="600" height="400"></canvas>
-        <script>
-          const canvas = document.getElementById('canvas');
-          const ctx = canvas.getContext('2d');
-          try {
-            ${userCode}
-          } catch (e) {
-            ctx.fillStyle = 'red';
-            ctx.font = '20px sans-serif';
-            ctx.fillText('error' + e.message, 10, 30);
-          }
-        <\/script>
-      </body>
-    </html>
-  `;
+function undo() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    codeArea.value = history[historyIndex];
+  }
+}
 
-  // Clear old preview
-  preview.innerHTML = "";
-  preview.appendChild(iframe);
+function redo() {
+  if (historyIndex < history.length - 1) {
+    historyIndex++;
+    codeArea.value = history[historyIndex];
+  }
+}
+
+codeArea.addEventListener('input', saveHistory);
+
+// === Run Code ===
+runBtn.addEventListener('click', () => {
+  try {
+    const result = eval(codeArea.value);
+    preview.innerText = result !== undefined ? result : 'Code executed.';
+  } catch (e) {
+    preview.innerText = 'Error: ' + e.message;
+  }
 });
 
-// Theme swap-o-matic
-themeSelect.addEventListener("change", () => {
+// === Save Project ===
+saveBtn.addEventListener('click', () => {
+  const name = projectNameInput.value.trim() || 'Untitled';
+  const data = {
+    name,
+    code: codeArea.value,
+    theme: themeSelect.value
+  };
+  localStorage.setItem('project_' + name, JSON.stringify(data));
+  alert('Project saved as: ' + name);
+});
+
+// === Export ===
+exportBtn.addEventListener('click', () => {
+  const data = {
+    name: projectNameInput.value,
+    code: codeArea.value
+  };
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${data.name || 'untitled'}.json`;
+  a.click();
+});
+
+// === Import ===
+importBtn.addEventListener('click', () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = () => {
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        projectNameInput.value = data.name || '';
+        codeArea.value = data.code || '';
+        saveHistory();
+        alert('Imported: ' + data.name);
+      } catch (e) {
+        alert('Invalid file format.');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+});
+
+// === Undo/Redo ===
+undoBtn.addEventListener('click', undo);
+redoBtn.addEventListener('click', redo);
+
+// === Theme Switch ===
+themeSelect.addEventListener('change', () => {
   document.body.className = themeSelect.value;
 });
+
+// === Initial Setup ===
+saveHistory();
