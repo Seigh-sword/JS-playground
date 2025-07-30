@@ -1,33 +1,30 @@
-/* === Base Styling === */
+/* === Base Styles === */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  transition: background 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 header {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
-  background-color: #222;
-  color: white;
+  padding: 10px;
   gap: 10px;
   flex-wrap: wrap;
+  border-bottom: 2px solid #ccc;
 }
 
 h1 {
-  margin: 0;
-  font-size: 1.5em;
+  margin-right: auto;
 }
 
 input[type="text"], textarea, select, button {
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 8px 12px;
-  font-size: 1em;
-  outline: none;
-  transition: all 0.2s ease;
+  font-size: 16px;
+  font-family: inherit;
 }
 
 textarea {
@@ -35,27 +32,24 @@ textarea {
   height: 300px;
   resize: vertical;
   margin-top: 10px;
-  background-color: #1e1e1e;
-  color: #fff;
-  font-family: monospace;
   border-radius: 12px;
+  box-sizing: border-box;
 }
 
 button {
   cursor: pointer;
-  background-color: #444;
-  color: white;
-}
-
-button:hover {
-  background-color: #555;
+  font-weight: bold;
 }
 
 main {
   padding: 20px;
 }
 
-/* === File Dropdown === */
+#preview {
+  margin-top: 20px;
+}
+
+/* === Dropdown === */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -64,88 +58,135 @@ main {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #333;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  padding: 10px;
+  background-color: inherit;
+  min-width: 160px;
   z-index: 1;
   border-radius: 10px;
-  flex-direction: column;
-  min-width: 160px;
-}
-
-.dropdown-content button {
-  width: 100%;
-  text-align: left;
-  background-color: #333;
-  padding: 8px;
-  margin: 2px 0;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .dropdown:hover .dropdown-content {
-  display: flex;
+  display: block;
 }
 
-/* === Preview Area === */
-#preview {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background-color: #2e2e2e;
-  color: #fff;
+.dropdown-content button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  padding: 10px;
+  border-radius: 0;
 }
 
 /* === Themes === */
-body.light {
-  background-color: #f0f0f0;
-  color: #333;
+
+/* Dark */
+body.dark {
+  background-color: #1e1e1e;
+  color: white;
 }
 
-body.light header {
-  background-color: #e0e0e0;
+body.dark textarea {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+/* Light */
+body.light {
+  background-color: #ffffff;
   color: black;
 }
 
 body.light textarea {
-  background-color: #fff;
-  color: #000;
+  background-color: #f0f0f0;
+  color: black;
 }
 
-body.light #preview {
-  background-color: #fff;
-  color: #000;
-}
-
+/* Metrix */
 body.metrix {
-  background-color: #002b36;
-  color: #00ff9f;
+  background-color: black;
+  color: #00ff00;
 }
 
+body.metrix textarea {
+  background-color: #001100;
+  color: #00ff00;
+}
+
+/* Nature */
 body.nature {
+  background-color: #d0f5d1;
+  color: #145214;
+}
+
+body.nature textarea {
   background-color: #e6ffe6;
-  color: #003300;
+  color: #145214;
 }
 
+/* Brick */
 body.brick {
-  background-color: #8b0000;
-  color: #ffe5b4;
+  background-color: #ffdddd;
+  color: #800000;
 }
 
-body.metrix textarea,
-body.nature textarea,
 body.brick textarea {
-  background-color: #111;
-  color: #0f0;
+  background-color: #ffe6e6;
+  color: #800000;
 }
 
-/* === Responsive === */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  textarea {
-    height: 200px;
-  }
+/* Ice */
+body.ice {
+  background-color: #e0f7ff;
+  color: #004466;
 }
 
+body.ice textarea {
+  background-color: #f0fcff;
+  color: #004466;
+}
+
+/* Firefly */
+body.firefly {
+  background-color: #1a1a1a;
+  color: #ffdd00;
+}
+
+body.firefly textarea {
+  background-color: #222222;
+  color: #ffdd00;
+}
+
+/* Retro */
+body.retro {
+  background-color: #fdf6e3;
+  color: #657b83;
+}
+
+body.retro textarea {
+  background-color: #eee8d5;
+  color: #657b83;
+}
+
+/* Candy */
+body.candy {
+  background-color: #ffeaf6;
+  color: #ff4da6;
+}
+
+body.candy textarea {
+  background-color: #fff0f7;
+  color: #ff4da6;
+}
+
+/* Ocean */
+body.ocean {
+  background-color: #001f3f;
+  color: #7fdbff;
+}
+
+body.ocean textarea {
+  background-color: #003366;
+  color: #7fdbff;
+}
